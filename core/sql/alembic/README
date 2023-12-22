@@ -1,0 +1,19 @@
+# Generic single-database configuration
+
+Running migrations:
+
+```bash
+alembic upgrade head
+```
+
+Create new empty Migration:
+
+```bash
+alembic revision -m "<Message>" 
+```
+
+Downgrade migrations:
+
+```bash
+alembic downgrade base
+```
