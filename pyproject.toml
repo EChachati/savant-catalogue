@@ -5,8 +5,8 @@ description = "Catalogue for shops which redirect the order to whatsapp"
 authors = ["Edkar Chachati <chachati28@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/EChachati/python-base-project"
-documentation = "https://github.com/EChachati/python-base-project/blob/master/README.md"
+repository = "https://github.com/EChachati/savant-catalogue"
+documentation = "https://github.com/EChachati/savant-catalogue"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -17,6 +17,7 @@ alembic = "^1.13.1"
 phonenumbers = "^8.13.27"
 python-dotenv = "^1.0.0"
 pymysql = "^1.1.0"
+uvicorn = "^0.25.0"
 
 [tool.poetry.group.dev.dependencies]
 ipdb = "^0.13.13"
@@ -32,7 +33,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.ruff]
 ignore = ["B008", "RUF012"]
-line-length = 100
+line-length = 80
 select = [
     "E",   # pycodestyle errors
     "W",   # pycodestyle warnings
@@ -61,11 +62,11 @@ ban-relative-imports = "all"
 
 
 [tool.black]
-line-length = 100
-target-version = ['py311']
+line-length = 80
+target-version = ['py312']
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.12"
 strict = true
 check_untyped_defs = false
 explicit_package_bases = true
