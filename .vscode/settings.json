@@ -16,9 +16,13 @@
     "cSpell.language": "en,es",
     "cSpell.words": [
         "chartboost",
+        "dotenv",
         "exitfirst",
+        "poolclass",
+        "pydantic",
         "pytest",
         "snok",
+        "sqlmodel",
         "stefanzweifel",
         "venv",
         "virtualenvs"

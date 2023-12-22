@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "python-base-project"
-version = "0.1.0"
-description = "Almost empty project with configurations, to start whatever you want"
+name = "savant-catalogue"
+version = "0.0.1"
+description = "Catalogue for shops which redirect the order to whatsapp"
 authors = ["Edkar Chachati <chachati28@gmail.com>"]
 license = "MIT"
 readme = "README.md"
@@ -10,6 +10,13 @@ documentation = "https://github.com/EChachati/python-base-project/blob/master/RE
 
 [tool.poetry.dependencies]
 python = "^3.10"
+fastapi = "^0.105.0"
+sqlmodel = "^0.0.14"
+pydantic-extra-types = "^2.2.0"
+alembic = "^1.13.1"
+phonenumbers = "^8.13.27"
+python-dotenv = "^1.0.0"
+pymysql = "^1.1.0"
 
 [tool.poetry.group.dev.dependencies]
 ipdb = "^0.13.13"
