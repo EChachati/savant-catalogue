@@ -1,11 +1,17 @@
 from fastapi import APIRouter, status
+from sqlmodel_crud_manager.crud import CRUDManager
 
-from core.controllers.crud import CRUD
+from core.sql.database import engine as db_engine
 from core.sql.models import Company, CompanyCreate
 
 router = APIRouter()
 
-crud = CRUD(Company)
+crud = CRUDManager(Company, db_engine)
+
+
+@router.get("/{pk}", status_code=status.HTTP_200_OK, response_model=Company)
+def get_company(pk: int):
+    return crud.get(pk)
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=Company)
@@ -23,6 +29,6 @@ def update_company(company: Company):
     return crud.update(company)
 
 
-@router.delete("/{pk}")
+@router.delete("/{pk}", status_code=status.HTTP_200_OK, response_model=Company)
 def delete_company(pk: int):
     return crud.delete(pk)
