@@ -24,6 +24,7 @@
         "pytest",
         "redoc",
         "snok",
+        "sqlite",
         "sqlmodel",
         "stefanzweifel",
         "venv",
