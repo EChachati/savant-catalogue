@@ -71,7 +71,3 @@ def test_delete_company(get_last_id):
     response = client.delete(BASE_PATH + str(999999))
     assert response.status_code == status.HTTP_404_NOT_FOUND
     assert isinstance(response.json(), dict)
-
-
-def test_should_fail():
-    assert 1 == 2
