@@ -34,21 +34,18 @@ def get_last_id_fixture():
     )
 
 
-@pytest.mark.test()
 def test_create_company():
     response = client.post(path["create"], json=data)
     assert response.status_code == status.HTTP_201_CREATED
     assert response.json()["name"] == data["name"]
 
 
-@pytest.mark.test()
 def test_get_company(get_last_id):
     response = client.get(BASE_PATH + str(get_last_id))
     assert response.status_code == status.HTTP_200_OK
     assert response.json()["id"] == 1
 
 
-@pytest.mark.test()
 def test_list_company():
     response = client.get(path["list"])
     assert response.status_code == status.HTTP_200_OK
@@ -58,7 +55,6 @@ def test_list_company():
     assert "name" in response.json()[0]
 
 
-@pytest.mark.test()
 def test_update_company(get_last_id):
     data.update({"name": "TotallyNotSavant", "id": get_last_id})
     response = client.put(path["update"], json=data)
@@ -66,7 +62,6 @@ def test_update_company(get_last_id):
     assert response.json()["name"] == data["name"]
 
 
-@pytest.mark.test()
 def test_delete_company(get_last_id):
     response = client.delete(BASE_PATH + str(get_last_id))
 
@@ -76,3 +71,7 @@ def test_delete_company(get_last_id):
     response = client.delete(BASE_PATH + str(999999))
     assert response.status_code == status.HTTP_404_NOT_FOUND
     assert isinstance(response.json(), dict)
+
+
+def test_should_fail():
+    assert 1 == 2
