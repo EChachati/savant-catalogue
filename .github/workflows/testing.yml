@@ -42,6 +42,11 @@ jobs:
           path: .venv
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
       #----------------------------------------------
+      #          Start Virtual environment
+      #----------------------------------------------
+      - name: Start virtual env
+        run: source .venv/bin/activate
+      #----------------------------------------------
       # install dependencies if cache does not exist
       #----------------------------------------------
       - name: Install dependencies
@@ -62,7 +67,6 @@ jobs:
       #----------------------------------------------
       - name: Run tests
         run: |
-          source .venv/bin/activate
           if pytest -k "non_existent_identifier_to_avoid_match" .; then
             pytest . --exitfirst
             coverage report
