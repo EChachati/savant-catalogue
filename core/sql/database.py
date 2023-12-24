@@ -7,7 +7,7 @@ load_dotenv()
 
 DATABASE_URL = os.environ["DB_URI"]
 
-engine = create_engine(DATABASE_URL, echo=True)
+engine = create_engine(DATABASE_URL)
 
 
 def get_db():
