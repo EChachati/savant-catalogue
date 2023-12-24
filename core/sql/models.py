@@ -52,13 +52,25 @@ class Product(ProductCreate, table=True):
     id: int | None = Field(default=None, primary_key=True)
     category: Category = Relationship(back_populates="products")
     company: Company = Relationship(back_populates="products")
+    purchases: list["Purchase"] = Relationship(
+        back_populates="products",
+        link_model=PurchaseProductLink,
+    )
 
 
-class PurchaseCreate(SQLModel):
+class PurchaseBase(SQLModel):
     amount: Decimal = Field(default=0, decimal_places=2)
     company_id: int | None = Field(default=None, foreign_key="company.id")
 
 
-class Purchase(PurchaseCreate, table=True):
+class Purchase(PurchaseBase, table=True):
     id: int | None = Field(default=None, primary_key=True)
     company: Company = Relationship(back_populates="purchases")
+    products: list[Product] = Relationship(
+        back_populates="purchases",
+        link_model=PurchaseProductLink,
+    )
+
+
+class PurchaseCreate(PurchaseBase):
+    product_ids: list[int]
