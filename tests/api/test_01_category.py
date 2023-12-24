@@ -4,15 +4,14 @@ from fastapi.testclient import TestClient
 from sqlmodel import Session, select
 
 from core.sql.database import engine
-from core.sql.models import Company
+from core.sql.models import Category
 from main import app
 
 client = TestClient(app)
-BASE_PATH = "/company/"
+BASE_PATH = "/category/"
 
 data = {
-    "name": "Savant",
-    "phone": "+584121234567",
+    "name": "Test",
 }
 
 
@@ -20,25 +19,25 @@ data = {
 def get_last_id_fixture():
     return (
         Session(engine)
-        .exec(select(Company).order_by(Company.id.desc()))
+        .exec(select(Category).order_by(Category.id.desc()))
         .first()
         .id
     )
 
 
-def test_create_company():
+def test_create_category():
     response = client.post(BASE_PATH, json=data)
     assert response.status_code == status.HTTP_201_CREATED
     assert response.json()["name"] == data["name"]
 
 
-def test_get_company(get_last_id):
+def test_get_category(get_last_id):
     response = client.get(BASE_PATH + str(get_last_id))
     assert response.status_code == status.HTTP_200_OK
     assert response.json()["id"] == 1
 
 
-def test_list_company():
+def test_list_category():
     response = client.get(BASE_PATH)
     assert response.status_code == status.HTTP_200_OK
     assert isinstance(response.json(), list)
@@ -47,14 +46,14 @@ def test_list_company():
     assert "name" in response.json()[0]
 
 
-def test_update_company(get_last_id):
+def test_update_category(get_last_id):
     data.update({"name": "TotallyNotSavant", "id": get_last_id})
     response = client.put(BASE_PATH, json=data)
     assert response.status_code == status.HTTP_200_OK
     assert response.json()["name"] == data["name"]
 
 
-def test_delete_company(get_last_id):
+def test_delete_category(get_last_id):
     response = client.delete(BASE_PATH + str(get_last_id))
 
     assert response.status_code == status.HTTP_200_OK
