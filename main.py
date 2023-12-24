@@ -4,6 +4,7 @@ from fastapi.responses import RedirectResponse
 from core.api.category import router as category_router
 from core.api.company import router as company_router
 from core.api.product import router as product_router
+from core.api.purchase import router as purchase_router
 
 app = FastAPI()
 
@@ -29,4 +30,10 @@ app.include_router(
     product_router,
     prefix="/product",
     tags=["Product"],
+)
+
+app.include_router(
+    purchase_router,
+    prefix="/purchase",
+    tags=["Purchase"],
 )

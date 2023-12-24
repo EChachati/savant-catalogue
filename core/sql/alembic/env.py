@@ -9,7 +9,6 @@ from core.sql.database import DATABASE_URL
 from core.sql.models import (  # noqa: F401
     Category,
     Company,
-    Product,
     Purchase,
     PurchaseProductLink,
 )

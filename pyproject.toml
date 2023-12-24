@@ -77,4 +77,4 @@ warn_unused_ignores = false
 exclude = ["tests"]
 
 [tool.pytest_env]
-DB_URI = "sqlite:///tests/api/testing.db"
+DB_URI = "sqlite:///tests/testing.db"
