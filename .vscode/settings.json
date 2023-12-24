@@ -20,6 +20,10 @@
         "dotenv",
         "exitfirst",
         "fastapi",
+        "foreignkey",
+        "ibfk",
+        "mysql",
+        "nullable",
         "poolclass",
         "pydantic",
         "pytest",
@@ -27,6 +31,7 @@
         "snok",
         "sqlite",
         "sqlmodel",
+        "sqltypes",
         "stefanzweifel",
         "venv",
         "virtualenvs"
