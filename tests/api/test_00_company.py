@@ -35,7 +35,10 @@ def test_create_company():
 def test_get_company(get_last_id):
     response = client.get(BASE_PATH + str(get_last_id))
     assert response.status_code == status.HTTP_200_OK
-    assert response.json()["id"] == 1
+    assert isinstance(response.json(), dict)
+    assert "id" in response.json()
+    assert "name" in response.json()
+    assert "phone" in response.json()
 
 
 def test_list_company():

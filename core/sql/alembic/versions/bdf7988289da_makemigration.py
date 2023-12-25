@@ -1,8 +1,8 @@
-"""init
+"""makemigration
 
-Revision ID: 2f721c3a6ca1
+Revision ID: bdf7988289da
 Revises:
-Create Date: 2023-12-21 20:45:24.994302
+Create Date: 2023-12-25 12:00:41.542845
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlmodel
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision: str = "2f721c3a6ca1"
+revision: str = "bdf7988289da"
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -56,19 +56,8 @@ def upgrade() -> None:
     )
     op.create_table(
         "purchase",
-        sa.Column("name", sqlmodel.sql.sqltypes.AutoString(), nullable=False),
-        sa.Column(
-            "description", sqlmodel.sql.sqltypes.AutoString(), nullable=False
-        ),
-        sa.Column("price", sa.Numeric(scale=2), nullable=False),
-        sa.Column("image", sqlmodel.sql.sqltypes.AutoString(), nullable=False),
-        sa.Column("category_id", sa.Integer(), nullable=True),
-        sa.Column("company_id", sa.Integer(), nullable=True),
+        sa.Column("company_id", sa.Integer(), nullable=False),
         sa.Column("id", sa.Integer(), nullable=False),
-        sa.ForeignKeyConstraint(
-            ["category_id"],
-            ["category.id"],
-        ),
         sa.ForeignKeyConstraint(
             ["company_id"],
             ["company.id"],
@@ -79,6 +68,8 @@ def upgrade() -> None:
         "purchaseproductlink",
         sa.Column("purchase_id", sa.Integer(), nullable=False),
         sa.Column("product_id", sa.Integer(), nullable=False),
+        sa.Column("quantity", sa.Integer(), nullable=False),
+        sa.Column("amount", sa.Numeric(scale=2), nullable=False),
         sa.ForeignKeyConstraint(
             ["product_id"],
             ["product.id"],
