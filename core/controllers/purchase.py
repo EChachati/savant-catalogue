@@ -19,7 +19,7 @@ class PurchaseController:
 
     def get(self, pk: int) -> PurchaseResponse:
         obj = PurchaseResponse.model_validate(self.crud.get(pk))
-        obj.total = sum([link.amount for link in obj.product_links])
+        obj.total = sum([link.amount for link in obj.products_purchased])
         return obj
 
     def create(self, purchase: PurchaseCreate):
@@ -48,8 +48,8 @@ class PurchaseController:
     def list(self):
         return self.crud.list()
 
-    def update(self, purchase: Purchase):
-        return self.crud.update(purchase)
+    def update(self, purchase: PurchaseCreate):
+        raise NotImplementedError
 
     def delete(self, pk: int):
-        return self.crud.delete(pk)
+        raise NotImplementedError

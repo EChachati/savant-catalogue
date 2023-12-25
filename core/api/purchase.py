@@ -6,7 +6,9 @@ from core.sql.models import Purchase, PurchaseCreate, PurchaseResponse
 router = APIRouter()
 
 
-@router.get("/{pk}", status_code=status.HTTP_200_OK, response_model=Purchase)
+@router.get(
+    "/{pk}", status_code=status.HTTP_200_OK, response_model=PurchaseResponse
+)
 def get_purchase(pk: int):
     return PurchaseController().get(pk)
 
@@ -20,16 +22,28 @@ def create_purchase(purchase: PurchaseCreate):
     return PurchaseController().create(purchase)
 
 
-@router.get("/", status_code=status.HTTP_200_OK, response_model=list[Purchase])
-def list_companies():
+@router.get(
+    "/",
+    status_code=status.HTTP_200_OK,
+    response_model=list[PurchaseResponse],
+)
+def list_purchases():
     return PurchaseController().list()
 
 
-@router.put("/", status_code=status.HTTP_200_OK, response_model=Purchase)
+@router.put(
+    "/",
+    status_code=status.HTTP_200_OK,
+    response_model=PurchaseResponse,
+)
 def update_purchase(purchase: Purchase):
     return PurchaseController().update(purchase)
 
 
-@router.delete("/{pk}", status_code=status.HTTP_200_OK, response_model=Purchase)
+@router.delete(
+    "/{pk}",
+    status_code=status.HTTP_200_OK,
+    response_model=PurchaseResponse,
+)
 def delete_purchase(pk: int):
     return PurchaseController().delete(pk)
