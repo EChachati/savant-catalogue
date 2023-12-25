@@ -1174,13 +1174,13 @@ SQLAlchemy = ">=2.0.0,<2.1.0"
 
 [[package]]
 name = "sqlmodel-crud-manager"
-version = "0.1.4"
+version = "0.1.5"
 description = "The SQLModel CRUD Manager is a Python library that facilitates common Create, Read, Update, and Delete (CRUD) operations on SQLModel entities within a FastAPI application. This library simplifies database interactions and provides an easy-to-use interface for managing SQLModel entities."
 optional = false
 python-versions = ">=3.10,<4.0"
 files = [
-    {file = "sqlmodel_crud_manager-0.1.4-py3-none-any.whl", hash = "sha256:8567f5bd1b5a6285287873fe8f24987f09ac4b0b4d80505328ed25dfcb0e7eb7"},
-    {file = "sqlmodel_crud_manager-0.1.4.tar.gz", hash = "sha256:a0ef68ad4ccbc27a27a91c40c413959d5d9dfa4fb859396caa8990b8839fe81e"},
+    {file = "sqlmodel_crud_manager-0.1.5-py3-none-any.whl", hash = "sha256:a9ad30cce1fe4e64286c522c2e3898daffd8d01b70ec086fff1aa4df5933aa84"},
+    {file = "sqlmodel_crud_manager-0.1.5.tar.gz", hash = "sha256:60c32b1320782d648cea9672e4b167287750c9ad95f7e61ab04ab537e2d802c3"},
 ]
 
 [package.dependencies]

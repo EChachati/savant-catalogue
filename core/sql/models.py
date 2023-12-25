@@ -37,6 +37,10 @@ class PurchaseProductLink(SQLModel, table=True):
         primary_key=True,
     )
 
+    quantity: int = Field(default=1)
+    amount: Decimal = Field(default=0, decimal_places=2)
+    purchase: "Purchase" = Relationship(back_populates="product_links")
+
 
 class ProductCreate(SQLModel):
     name: str
@@ -59,8 +63,7 @@ class Product(ProductCreate, table=True):
 
 
 class PurchaseBase(SQLModel):
-    amount: Decimal = Field(default=0, decimal_places=2)
-    company_id: int | None = Field(default=None, foreign_key="company.id")
+    company_id: int = Field(default=None, foreign_key="company.id")
 
 
 class Purchase(PurchaseBase, table=True):
@@ -70,7 +73,15 @@ class Purchase(PurchaseBase, table=True):
         back_populates="purchases",
         link_model=PurchaseProductLink,
     )
+    product_links: list[PurchaseProductLink] = Relationship(
+        back_populates="purchase",
+    )
 
 
 class PurchaseCreate(PurchaseBase):
     product_ids: list[int]
+
+
+class PurchaseResponse(PurchaseBase):
+    product_links: list[PurchaseProductLink]
+    total: Decimal = Field(default=0, decimal_places=2)
