@@ -1,26 +1,24 @@
 from decimal import Decimal
 
-from pydantic_extra_types.phone_numbers import PhoneNumber
 from sqlmodel import Field, Relationship, SQLModel
 
-
-class CompanyCreate(SQLModel):
-    name: str
-    phone: PhoneNumber
+from core.sql.mixins import IdMixin, NameMixin, PhoneMixin
 
 
-class Company(CompanyCreate, table=True):
-    id: int | None = Field(default=None, primary_key=True)
+class CompanyCreate(PhoneMixin, NameMixin):
+    pass
+
+
+class Company(CompanyCreate, IdMixin, table=True):
     products: list["Product"] = Relationship(back_populates="company")
     purchases: list["Purchase"] = Relationship(back_populates="company")
 
 
-class CategoryCreate(SQLModel):
-    name: str
+class CategoryCreate(NameMixin):
+    pass
 
 
-class Category(CategoryCreate, table=True):
-    id: int | None = Field(default=None, primary_key=True)
+class Category(CategoryCreate, IdMixin, table=True):
     products: list["Product"] = Relationship(back_populates="category")
 
 
@@ -42,8 +40,7 @@ class PurchaseProductLink(SQLModel, table=True):
     purchase: "Purchase" = Relationship(back_populates="products_purchased")
 
 
-class ProductCreate(SQLModel):
-    name: str
+class ProductCreate(NameMixin):
     description: str
     price: Decimal = Field(default=0, decimal_places=2)
     image: str
@@ -52,8 +49,7 @@ class ProductCreate(SQLModel):
     company_id: int | None = Field(default=None, foreign_key="company.id")
 
 
-class Product(ProductCreate, table=True):
-    id: int | None = Field(default=None, primary_key=True)
+class Product(ProductCreate, IdMixin, table=True):
     category: Category = Relationship(back_populates="products")
     company: Company = Relationship(back_populates="products")
     purchases: list["Purchase"] = Relationship(
@@ -66,8 +62,7 @@ class PurchaseBase(SQLModel):
     company_id: int = Field(default=None, foreign_key="company.id")
 
 
-class Purchase(PurchaseBase, table=True):
-    id: int | None = Field(default=None, primary_key=True)
+class Purchase(PurchaseBase, IdMixin, table=True):
     company: Company = Relationship(back_populates="purchases")
     products: list[Product] = Relationship(
         back_populates="purchases",
