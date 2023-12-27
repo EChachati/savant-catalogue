@@ -9,7 +9,7 @@ from core.sql.models.purchase_product_link import PurchaseProductLink
 
 class ProductCreate(NameMixin):
     description: str
-    price: Decimal = Field(default=0, decimal_places=2)
+    price: Decimal = Field(default=0.0, decimal_places=2)
     image: str
 
     category_id: int | None = Field(default=None, foreign_key="category.id")

@@ -11,5 +11,5 @@ class PurchaseProductLink(BaseModel, table=True):
     product_id: int | None = Field(foreign_key="product.id")
 
     quantity: int = Field(default=1)
-    amount: Decimal = Field(default=0, decimal_places=2)
+    amount: Decimal = Field(default=0.0, decimal_places=2)
     purchase: "Purchase" = Relationship(back_populates="products_purchased")  # noqa: F821

@@ -30,4 +30,4 @@ class PurchaseResponse(PurchaseBase):
     products_purchased: list[PurchaseProductLink] = Field(
         default=[],
     )
-    total: Decimal = Field(default=0, decimal_places=2)
+    total: Decimal = Field(default=0.0, decimal_places=2)
