@@ -6,17 +6,9 @@ from core.sql.models.base_model import BaseModel
 
 
 class PurchaseProductLink(BaseModel, table=True):
-    purchase_id: int | None = Field(
-        default=None,
-        foreign_key="purchase.id",
-        primary_key=True,
-    )
+    purchase_id: int | None = Field(foreign_key="purchase.id")
 
-    product_id: int | None = Field(
-        default=None,
-        foreign_key="product.id",
-        primary_key=True,
-    )
+    product_id: int | None = Field(foreign_key="product.id")
 
     quantity: int = Field(default=1)
     amount: Decimal = Field(default=0, decimal_places=2)

@@ -1,8 +1,8 @@
 """generate tables
 
-Revision ID: 6d3055195c46
+Revision ID: 2ef5d346c952
 Revises: 
-Create Date: 2023-12-26 22:18:19.822657
+Create Date: 2023-12-26 22:35:41.312794
 
 """
 from typing import Sequence, Union
@@ -13,7 +13,7 @@ import sqlmodel
 
 
 # revision identifiers, used by Alembic.
-revision: str = '6d3055195c46'
+revision: str = '2ef5d346c952'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -66,13 +66,13 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
-    sa.Column('purchase_id', sa.Integer(), nullable=False),
-    sa.Column('product_id', sa.Integer(), nullable=False),
+    sa.Column('purchase_id', sa.Integer(), nullable=True),
+    sa.Column('product_id', sa.Integer(), nullable=True),
     sa.Column('quantity', sa.Integer(), nullable=False),
     sa.Column('amount', sa.Numeric(scale=2), nullable=False),
     sa.ForeignKeyConstraint(['product_id'], ['product.id'], ),
     sa.ForeignKeyConstraint(['purchase_id'], ['purchase.id'], ),
-    sa.PrimaryKeyConstraint('id', 'purchase_id', 'product_id')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_purchaseproductlink_id'), 'purchaseproductlink', ['id'], unique=False)
     # ### end Alembic commands ###
