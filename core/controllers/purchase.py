@@ -4,12 +4,12 @@ from sqlmodel_crud_manager.crud import CRUDManager
 
 from core.api.product import crud as product_crud
 from core.sql.database import engine
-from core.sql.models import (
+from core.sql.models.purchase import (
     Purchase,
     PurchaseCreate,
-    PurchaseProductLink,
     PurchaseResponse,
 )
+from core.sql.models.purchase_product_link import PurchaseProductLink
 
 
 class PurchaseController:

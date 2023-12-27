@@ -6,11 +6,12 @@ from sqlalchemy import engine_from_config, pool
 from sqlmodel import SQLModel
 
 from core.sql.database import DATABASE_URL
-from core.sql.models import (  # noqa: F401
-    Category,
-    Company,
-    Purchase,
-    PurchaseProductLink,
+from core.sql.models.category import Category  # noqa: F401
+from core.sql.models.company import Company  # noqa: F401
+from core.sql.models.product import Product  # noqa: F401
+from core.sql.models.purchase import Purchase  # noqa:F401
+from core.sql.models.purchase_product_link import (
+    PurchaseProductLink,  # noqa:F401
 )
 
 # this is the Alembic Config object, which provides

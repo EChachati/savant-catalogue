@@ -2,7 +2,7 @@ from fastapi import APIRouter, status
 from sqlmodel_crud_manager.crud import CRUDManager
 
 from core.sql.database import engine as db_engine
-from core.sql.models import Company, CompanyCreate
+from core.sql.models.company import Company, CompanyCreate
 
 router = APIRouter()
 

@@ -4,7 +4,7 @@ from fastapi.testclient import TestClient
 from sqlmodel import Session, select
 
 from core.sql.database import engine
-from core.sql.models import Category
+from core.sql.models.category import Category
 from main import app
 
 client = TestClient(app)

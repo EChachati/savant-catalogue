@@ -25,6 +25,7 @@
         "makemigration",
         "mysql",
         "nullable",
+        "onupdate",
         "poolclass",
         "purchaseproductlink",
         "pydantic",

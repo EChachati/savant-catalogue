@@ -4,7 +4,7 @@ from fastapi.testclient import TestClient
 from sqlmodel import Session, select
 
 from core.sql.database import engine
-from core.sql.models import Purchase
+from core.sql.models.purchase import Purchase
 from main import app
 
 client = TestClient(app)

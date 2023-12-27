@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status
 
 from core.controllers.purchase import PurchaseController
-from core.sql.models import Purchase, PurchaseCreate, PurchaseResponse
+from core.sql.models.purchase import Purchase, PurchaseCreate, PurchaseResponse
 
 router = APIRouter()
 
