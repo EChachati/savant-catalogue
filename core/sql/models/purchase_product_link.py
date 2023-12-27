@@ -13,3 +13,4 @@ class PurchaseProductLink(BaseModel, table=True):
     quantity: int = Field(default=1)
     amount: Decimal = Field(default=0.0, decimal_places=2)
     purchase: "Purchase" = Relationship(back_populates="products_purchased")  # noqa: F821
+    product: "Product" = Relationship(back_populates="links")  # noqa: F821

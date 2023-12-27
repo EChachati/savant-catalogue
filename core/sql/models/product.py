@@ -24,3 +24,5 @@ class Product(ProductCreate, BaseModel, table=True):
         back_populates="products",
         link_model=PurchaseProductLink,
     )
+
+    links: list[PurchaseProductLink] = Relationship(back_populates="product")
