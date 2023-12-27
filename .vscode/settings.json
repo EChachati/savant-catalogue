@@ -37,7 +37,8 @@
         "sqltypes",
         "stefanzweifel",
         "venv",
-        "virtualenvs"
+        "virtualenvs",
+        "whatsapp"
     ],
     "python.analysis.typeCheckingMode": "off",
     "docwriter.progress.trackFunctions": true,
