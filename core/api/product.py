@@ -1,4 +1,5 @@
 from fastapi import APIRouter, status
+from sqlmodel import select
 from sqlmodel_crud_manager.crud import CRUDManager
 
 from core.sql.database import engine as db_engine
@@ -20,8 +21,16 @@ def create_product(product: ProductCreate):
 
 
 @router.get("/", status_code=status.HTTP_200_OK, response_model=list[Product])
-def list_companies():
-    return crud.list()
+def list_products(
+    company_id: int | None = None,
+    category_id: int | None = None,
+):
+    query = select(Product)
+    if company_id:
+        query = query.where(Product.company_id == company_id)
+    if category_id:
+        query = query.where(Product.category_id == category_id)
+    return crud.db.exec(query).all()
 
 
 @router.put("/", status_code=status.HTTP_200_OK, response_model=Product)
