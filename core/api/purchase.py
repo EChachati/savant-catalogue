@@ -47,3 +47,12 @@ def update_purchase(purchase: Purchase):
 )
 def delete_purchase(pk: int):
     return PurchaseController().delete(pk)
+
+
+@router.get(
+    "/message/{pk}",
+    status_code=status.HTTP_200_OK,
+    response_model=str,
+)
+def get_purchase_as_message(pk: int):
+    return PurchaseController().get_as_message(pk)

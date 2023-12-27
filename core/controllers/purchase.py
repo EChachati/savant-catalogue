@@ -3,6 +3,7 @@ from collections import Counter
 from sqlmodel_crud_manager.crud import CRUDManager
 
 from core.api.product import crud as product_crud
+from core.controllers.whatsapp import link_generator
 from core.sql.database import engine
 from core.sql.models.purchase import (
     Purchase,
@@ -53,3 +54,11 @@ class PurchaseController:
 
     def delete(self, pk: int):
         raise NotImplementedError
+
+    def get_as_message(self, pk: int):
+        purchase = self.crud.get(pk)
+
+        return link_generator(
+            phone_number=purchase.company.phone,
+            text=purchase.as_message(),
+        )

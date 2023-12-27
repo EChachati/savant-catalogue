@@ -20,6 +20,23 @@ class Purchase(PurchaseBase, BaseModel, table=True):
         back_populates="purchase",
     )
 
+    @property
+    def total(self):
+        return sum([link.amount for link in self.products_purchased])
+
+    def as_message(self):
+        purchase = f"Pedido {self.id}\n\n"
+        product_label = "Productos:\n\t"
+        products = "".join(
+            [
+                f"\n👉 {item.product.name} x{item.quantity}"
+                for item in self.products_purchased
+            ]
+        )
+        total = f"\n\nTotal: $ {self.total}"
+
+        return purchase + product_label + products + total
+
 
 class PurchaseCreate(PurchaseBase):
     product_ids: list[int]
@@ -27,7 +44,5 @@ class PurchaseCreate(PurchaseBase):
 
 class PurchaseResponse(PurchaseBase):
     id: int
-    products_purchased: list[PurchaseProductLink] = Field(
-        default=[],
-    )
+    products_purchased: list[PurchaseProductLink] = Field(default=[])
     total: Decimal = Field(default=0.0, decimal_places=2)
