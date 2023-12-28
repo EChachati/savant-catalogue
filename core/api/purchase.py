@@ -7,9 +7,24 @@ router = APIRouter()
 
 
 @router.get(
-    "/{pk}", status_code=status.HTTP_200_OK, response_model=PurchaseResponse
+    "/{pk}",
+    status_code=status.HTTP_200_OK,
+    response_model=PurchaseResponse,
 )
 def get_purchase(pk: int):
+    """
+    The function `get_purchase` retrieves a purchase with a given primary key.
+
+    Arguments:
+    * `pk`: The parameter "pk" is an integer that represents the primary key of
+    the purchase that we
+    want to retrieve.
+
+    Returns:
+    the result of the `get()` method from the `PurchaseController` class, which
+    is expected to return a
+    `PurchaseResponse` object.
+    """
     return PurchaseController().get(pk)
 
 
@@ -19,6 +34,15 @@ def get_purchase(pk: int):
     response_model=PurchaseResponse,
 )
 def create_purchase(purchase: PurchaseCreate):
+    """
+    Create a purchase and return it as a JSON
+
+    Args:
+        purchase: The PurchaseCreate to create.
+
+    Returns:
+        The created purchase.
+    """
     return PurchaseController().create(purchase)
 
 

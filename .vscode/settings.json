@@ -46,4 +46,6 @@
     "docwriter.progress.trackTypes": true,
     "docwriter.hotkey.windows": "Alt + .",
     "docwriter.style": "RustDoc",
+    "docify.commentService.docstringFormat": "Google",
+    "docify.translateService.docstringFormat": "reST",
 }
