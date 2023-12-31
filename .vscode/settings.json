@@ -16,11 +16,13 @@
     "cSpell.language": "en,es",
     "cSpell.words": [
         "autouse",
+        "botocore",
         "chartboost",
         "dotenv",
         "exitfirst",
         "fastapi",
         "foreignkey",
+        "httpx",
         "ibfk",
         "makemigration",
         "mysql",
@@ -36,6 +38,7 @@
         "sqlmodel",
         "sqltypes",
         "stefanzweifel",
+        "TEBI",
         "venv",
         "virtualenvs",
         "whatsapp"
