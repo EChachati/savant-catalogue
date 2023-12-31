@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+from pydantic import Field as PydanticField
 from sqlmodel import Field, Relationship
 
 from core.sql.mixins import NameMixin
@@ -8,7 +9,11 @@ from core.sql.models.purchase_product_link import PurchaseProductLink
 
 
 class ProductCreate(NameMixin):
-    description: str
+    description: str = PydanticField(
+        max_length=500,
+        min_length=2,
+        examples=["Some Random Description"],
+    )
     price: Decimal = Field(default=0.0, decimal_places=2)
     image: str
 
