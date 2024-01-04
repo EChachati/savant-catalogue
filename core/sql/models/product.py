@@ -15,7 +15,7 @@ class ProductCreate(NameMixin):
         examples=["Some Random Description"],
     )
     price: Decimal = Field(default=0.0, decimal_places=2)
-    image: str
+    image: str | None = PydanticField(default=None, examples=["example.com"])
 
     category_id: int | None = Field(default=None, foreign_key="category.id")
     company_id: int | None = Field(default=None, foreign_key="company.id")

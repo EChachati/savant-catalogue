@@ -1,7 +1,8 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter, UploadFile, status
 from sqlmodel import select
 from sqlmodel_crud_manager.crud import CRUDManager
 
+from core.controllers.media import FileHandler
 from core.sql.database import engine as db_engine
 from core.sql.models.product import Product, ProductCreate
 
@@ -28,7 +29,7 @@ def get_product(pk: int):
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=Product)
-def create_product(product: ProductCreate):
+def create_product(product: ProductCreate, image: UploadFile | None = None):
     """
     The function `create_product` creates a new product using the data provided
     in the `product` parameter and returns the created product.
@@ -40,6 +41,10 @@ def create_product(product: ProductCreate):
     Returns:
     the result of the `crud.create(product)` function call.
     """
+    if image:
+        img = FileHandler(image)
+        img.upload_file()
+        product.image = img.get_url_file()
     return crud.create(product)
 
 
