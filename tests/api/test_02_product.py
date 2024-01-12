@@ -51,6 +51,17 @@ def test_create_product(create_data):
     assert response.json()["name"] == data["name"]
 
 
+def test_upload_image(get_last_id):
+    response = client.post(
+        url=BASE_PATH + str(get_last_id) + "/upload-image",
+        files=[("image", open("tests/static/test_image.png", "rb"))],  # noqa: SIM115
+    )
+
+    assert response.status_code == status.HTTP_200_OK
+    assert isinstance(response.json(), dict)
+    assert "image" in response.json()
+
+
 def test_get_product(get_last_id):
     response = client.get(BASE_PATH + str(get_last_id))
     assert response.status_code == status.HTTP_200_OK
