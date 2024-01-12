@@ -83,7 +83,9 @@ class FileHandler:
         )
 
         bucket = s3_resource.Bucket(self.bucket_name)
-        bucket.put_object(Key=self.filename, Body=self.file.file)
+        bucket.put_object(
+            Key=self.filename, Body=self.file.file, ACL="public-read"
+        )
 
     def get_url_file(self):
         """
@@ -109,3 +111,6 @@ class FileHandler:
         except ClientError as e:
             logging.error(e)
             return None
+
+    def get_public_url(self):
+        return f"https://s3.tebi.io/{self.bucket_name}/{self.filename}"

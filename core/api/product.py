@@ -56,7 +56,7 @@ async def upload_image(pk: int, image: UploadFile = File(...)):
         filename=f"{pk}_product_{product.name.lower().replace(" ","_")}.png",
     )
     await img.upload_file()
-    product.image = img.get_url_file()
+    product.image = img.get_public_url()
     return crud.update(product)
 
 
