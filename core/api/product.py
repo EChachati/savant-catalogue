@@ -46,7 +46,7 @@ def create_product(product: ProductCreate):
 
 @router.post(
     "/{pk}/upload-image",
-    status_code=status.HTTP_201_CREATED,
+    status_code=status.HTTP_200_OK,
     response_model=Product,
 )
 async def upload_image(pk: int, image: UploadFile = File(...)):
