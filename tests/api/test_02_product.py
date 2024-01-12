@@ -14,7 +14,7 @@ data = {
     "name": "Product",
     "description": "Product Test",
     "price": 100.00,
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/166000186/medium.jpg",
+    # "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/166000186/medium.jpg",
     "category_id": 1,
     "company_id": 1,
 }
