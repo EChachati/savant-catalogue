@@ -1,4 +1,4 @@
-from fastapi import APIRouter, UploadFile, status
+from fastapi import APIRouter, File, UploadFile, status
 from sqlmodel import select
 from sqlmodel_crud_manager.crud import CRUDManager
 
@@ -29,7 +29,7 @@ def get_product(pk: int):
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=Product)
-def create_product(product: ProductCreate, image: UploadFile | None = None):
+def create_product(product: ProductCreate):
     """
     The function `create_product` creates a new product using the data provided
     in the `product` parameter and returns the created product.
@@ -41,11 +41,23 @@ def create_product(product: ProductCreate, image: UploadFile | None = None):
     Returns:
     the result of the `crud.create(product)` function call.
     """
-    if image:
-        img = FileHandler(image)
-        img.upload_file()
-        product.image = img.get_url_file()
     return crud.create(product)
+
+
+@router.post(
+    "/{pk}/upload-image",
+    status_code=status.HTTP_201_CREATED,
+    response_model=Product,
+)
+async def upload_image(pk: int, image: UploadFile = File(...)):
+    product: Product = crud.get(pk)
+    img = FileHandler(
+        image,
+        filename=f"{pk}_product_{product.name.lower().replace(" ","_")}.png",
+    )
+    await img.upload_file()
+    product.image = img.get_url_file()
+    return crud.update(product)
 
 
 @router.get("/", status_code=status.HTTP_200_OK, response_model=list[Product])
