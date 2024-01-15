@@ -20,7 +20,7 @@ class PurchaseController:
 
     def get(self, pk: int) -> PurchaseResponse:
         obj = PurchaseResponse.model_validate(self.crud.get(pk))
-        obj.total = sum([link.amount for link in obj.products_purchased])
+        obj.total_usd = sum([link.amount for link in obj.products_purchased])
         return obj
 
     def create(self, purchase: PurchaseCreate):
