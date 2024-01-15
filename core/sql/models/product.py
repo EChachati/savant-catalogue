@@ -3,6 +3,7 @@ from decimal import Decimal
 from pydantic import Field as PydanticField
 from sqlmodel import Field, Relationship
 
+from core.controllers.currency import CurrencyController
 from core.sql.mixins import NameMixin
 from core.sql.models.base_model import BaseModel
 from core.sql.models.purchase_product_link import PurchaseProductLink
@@ -31,3 +32,12 @@ class Product(ProductCreate, BaseModel, table=True):
     )
 
     links: list[PurchaseProductLink] = Relationship(back_populates="product")
+
+    @property
+    def price_ves(self):
+        ves_to_usd_value = CurrencyController().get_by_code("VES").to_usd
+        return Decimal(self.price * ves_to_usd_value).quantize(Decimal("1.00"))
+
+
+class ProductResponse(ProductCreate):
+    price_ves: Decimal = Field(default=0.0, decimal_places=2)

@@ -4,14 +4,18 @@ from sqlmodel_crud_manager.crud import CRUDManager
 
 from core.controllers.media import FileHandler
 from core.sql.database import engine as db_engine
-from core.sql.models.product import Product, ProductCreate
+from core.sql.models.product import Product, ProductCreate, ProductResponse
 
 router = APIRouter()
 
 crud = CRUDManager(Product, db_engine)
 
 
-@router.get("/{pk}", status_code=status.HTTP_200_OK, response_model=Product)
+@router.get(
+    "/{pk}",
+    status_code=status.HTTP_200_OK,
+    response_model=ProductResponse,
+)
 def get_product(pk: int):
     """
     The function `get_product` retrieves a product with the specified primary
@@ -28,7 +32,11 @@ def get_product(pk: int):
     return crud.get(pk)
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED, response_model=Product)
+@router.post(
+    "/",
+    status_code=status.HTTP_201_CREATED,
+    response_model=ProductResponse,
+)
 def create_product(product: ProductCreate):
     """
     The function `create_product` creates a new product using the data provided
@@ -60,7 +68,11 @@ async def upload_image(pk: int, image: UploadFile = File(...)):
     return crud.update(product)
 
 
-@router.get("/", status_code=status.HTTP_200_OK, response_model=list[Product])
+@router.get(
+    "/",
+    status_code=status.HTTP_200_OK,
+    response_model=list[ProductResponse],
+)
 def list_products(
     company_id: int | None = None,
     category_id: int | None = None,
@@ -89,7 +101,7 @@ def list_products(
     return crud.db.exec(query).all()
 
 
-@router.put("/", status_code=status.HTTP_200_OK, response_model=Product)
+@router.put("/", status_code=status.HTTP_200_OK, response_model=ProductResponse)
 def update_product(product: Product):
     """
     The function `update_product` updates a product and returns the updated
@@ -106,7 +118,11 @@ def update_product(product: Product):
     return crud.update(product)
 
 
-@router.delete("/{pk}", status_code=status.HTTP_200_OK, response_model=Product)
+@router.delete(
+    "/{pk}",
+    status_code=status.HTTP_200_OK,
+    response_model=ProductResponse,
+)
 def delete_product(pk: int):
     """
     The above function is a DELETE endpoint that deletes a product with the
