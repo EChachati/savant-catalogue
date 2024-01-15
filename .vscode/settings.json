@@ -19,6 +19,7 @@
         "botocore",
         "chartboost",
         "dotenv",
+        "EXCHANGERATES",
         "exitfirst",
         "fastapi",
         "foreignkey",

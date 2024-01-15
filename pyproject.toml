@@ -22,6 +22,7 @@ sqlmodel-crud-manager = "^0.1.2"
 python-multipart = "^0.0.6"
 deprecated = "^1.2.14"
 boto3 = "^1.34.11"
+requests = "^2.31.0"
 
 [tool.poetry.group.dev.dependencies]
 ipdb = "^0.13.13"
