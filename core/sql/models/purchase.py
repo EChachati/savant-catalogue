@@ -33,7 +33,7 @@ class Purchase(PurchaseBase, BaseModel, table=True):
         )
 
     def as_message(self):
-        purchase = f"Pedido {self.id}\n\n"
+        purchase = f"Pedido #{self.id}\n\n"
         product_label = "Productos:\n\t"
         products = "".join(
             [
