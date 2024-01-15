@@ -56,7 +56,8 @@ def test_create_purchase(create_data):
     assert "id" in response.json()
     assert "company_id" in response.json()
     assert "products_purchased" in response.json()
-    assert "total" in response.json()
+    assert "total_usd" in response.json()
+    assert "total_ves" in response.json()
     assert isinstance(response.json()["products_purchased"], list)
     assert isinstance(response.json()["products_purchased"][0], dict)
     assert "product_id" in response.json()["products_purchased"][0]
@@ -71,7 +72,8 @@ def test_get_purchase(get_last_id):
     assert "id" in response.json()
     assert "company_id" in response.json()
     assert "products_purchased" in response.json()
-    assert "total" in response.json()
+    assert "total_usd" in response.json()
+    assert "total_ves" in response.json()
     assert isinstance(response.json()["products_purchased"], list)
     assert isinstance(response.json()["products_purchased"][0], dict)
     assert "product_id" in response.json()["products_purchased"][0]
@@ -87,7 +89,8 @@ def test_list_purchase():
     assert "id" in response.json()[0]
     assert "company_id" in response.json()[0]
     assert "products_purchased" in response.json()[0]
-    assert "total" in response.json()[0]
+    assert "total_usd" in response.json()[0]
+    assert "total_ves" in response.json()
     assert isinstance(response.json()[0]["products_purchased"], list)
     assert isinstance(response.json()[0]["products_purchased"][0], dict)
     assert "product_id" in response.json()[0]["products_purchased"][0]

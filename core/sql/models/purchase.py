@@ -26,7 +26,7 @@ class Purchase(PurchaseBase, BaseModel, table=True):
         return sum([link.amount for link in self.products_purchased])
 
     @property
-    def total_bcv(self):
+    def total_ves(self):
         ves_to_usd_value = CurrencyController().get_by_code("VES").to_usd
         return Decimal(self.total_usd * ves_to_usd_value).quantize(
             Decimal("1.00")
@@ -41,7 +41,7 @@ class Purchase(PurchaseBase, BaseModel, table=True):
                 for item in self.products_purchased
             ]
         )
-        total = f"\n\nTotal:\n\t$ {self.total_usd}\n\tBs. {self.total_bcv}"
+        total = f"\n\nTotal:\n\t$ {self.total_usd}\n\tBs. {self.total_ves}"
 
         return purchase + product_label + products + total
 
@@ -54,4 +54,4 @@ class PurchaseResponse(PurchaseBase):
     id: int
     products_purchased: list[PurchaseProductLink] = Field(default=[])
     total_usd: Decimal = Field(default=0.0, decimal_places=2)
-    total_bcv: Decimal = Field(default=0.0, decimal_places=2)
+    total_ves: Decimal = Field(default=0.0, decimal_places=2)
