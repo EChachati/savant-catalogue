@@ -20,8 +20,7 @@ class CurrencyController:
         obj: Currency = self.crud.get_by_field(field="code", value=code)
 
         if not obj.updated_at or (
-            obj.updated_at.date() < date.today()
-            and datetime.date.today().weekday() < 5
+            obj.updated_at.date() < date.today() and date.today().weekday() < 5
         ):
             response = requests.get(self.url)
 
