@@ -17,6 +17,7 @@ data = {
     # "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/166000186/medium.jpg",
     "category_id": 1,
     "company_id": 1,
+    "barcode": "123456789",
 }
 
 

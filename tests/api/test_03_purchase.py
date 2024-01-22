@@ -40,6 +40,7 @@ def test_create_data():
             "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/166000186/medium.jpg",
             "category_id": category.get("id"),
             "company_id": company.get("id"),
+            "barcode": "987654321",
         },
     ).json()
     return company.get("id"), product.get("id")
