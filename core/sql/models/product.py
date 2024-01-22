@@ -16,10 +16,11 @@ class ProductCreate(NameMixin):
         examples=["Some Random Description"],
     )
     price: Decimal = Field(default=0.0, decimal_places=2)
-    image: str | None = PydanticField(default=None, examples=["example.com"])
+    stock: Decimal = Field(default=0.0, decimal_places=2)
 
     category_id: int | None = Field(default=None, foreign_key="category.id")
     company_id: int | None = Field(default=None, foreign_key="company.id")
+    image: str | None = PydanticField(default=None, examples=["example.com"])
 
 
 class Product(ProductCreate, BaseModel, table=True):
