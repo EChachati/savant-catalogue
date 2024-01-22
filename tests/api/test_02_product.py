@@ -33,9 +33,13 @@ def get_last_id_fixture():
 @pytest.fixture(name="create_data")
 def test_create_data():
     company = client.post(
-        "/company/", json={"name": "Company", "phone": "123456789"}
+        "/company/",
+        json={"name": "Company", "phone": "123456789"},
     ).json()
-    category = client.post("/category/", json={"name": "Category"}).json()
+    category = client.post(
+        "/category/",
+        json={"name": "Category"},
+    ).json()
     return company.get("id"), category.get("id")
 
 

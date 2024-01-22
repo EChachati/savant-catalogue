@@ -40,4 +40,5 @@ class Product(ProductCreate, BaseModel, table=True):
 
 
 class ProductResponse(ProductCreate):
+    id: int
     price_ves: Decimal = Field(default=0.0, decimal_places=2)

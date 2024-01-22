@@ -90,7 +90,7 @@ def test_list_purchase():
     assert "company_id" in response.json()[0]
     assert "products_purchased" in response.json()[0]
     assert "total_usd" in response.json()[0]
-    assert "total_ves" in response.json()
+    assert "total_ves" in response.json()[0]
     assert isinstance(response.json()[0]["products_purchased"], list)
     assert isinstance(response.json()[0]["products_purchased"][0], dict)
     assert "product_id" in response.json()[0]["products_purchased"][0]
