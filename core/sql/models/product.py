@@ -18,6 +18,13 @@ class ProductCreate(NameMixin):
     price: Decimal = Field(default=0.0, decimal_places=2)
     stock: Decimal = Field(default=0.0, decimal_places=2)
 
+    barcode: str = PydanticField(
+        ...,
+        min_length=1,
+        max_length=128,
+        examples=["123456789"],
+    )
+
     category_id: int | None = Field(default=None, foreign_key="category.id")
     company_id: int | None = Field(default=None, foreign_key="company.id")
     image: str | None = PydanticField(default=None, examples=["example.com"])
