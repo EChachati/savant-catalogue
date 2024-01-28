@@ -1,16 +1,21 @@
 from decimal import Decimal
 
 from pydantic import Field as PydanticField
+from pydantic import field_validator
 from sqlmodel import Field, Relationship
 
+from core.api.category import crud as category_crud
+from core.api.company import crud as company_crud
 from core.controllers.currency import CurrencyController
 from core.sql.mixins import NameMixin
 from core.sql.models.base_model import BaseModel
+from core.sql.models.category import CategoryCreate
 from core.sql.models.purchase_product_link import PurchaseProductLink
 
 
 class ProductCreate(NameMixin):
     description: str = PydanticField(
+        default="There is no description for this product.",
         max_length=500,
         min_length=2,
         examples=["Some Random Description"],
@@ -28,6 +33,30 @@ class ProductCreate(NameMixin):
     category_id: int | None = Field(default=None, foreign_key="category.id")
     company_id: int | None = Field(default=None, foreign_key="company.id")
     image: str | None = PydanticField(default=None, examples=["example.com"])
+
+    @field_validator("description", mode="before")
+    @classmethod
+    def description_validations(cls, v):
+        if v is None:
+            return v.title()
+        return v
+
+    @field_validator("category_id", mode="before")
+    @classmethod
+    def category_validations(cls, v):
+        if isinstance(v, str):
+            return category_crud.get_or_create(
+                CategoryCreate(**{"name": v.title()}),
+                search_field="name",
+            ).id
+        return v
+
+    @field_validator("company_id", mode="before")
+    @classmethod
+    def company_validations(cls, v):
+        if isinstance(v, str):
+            return company_crud.get_by_field_or_404(field="name", value=v).id
+        return v
 
 
 class Product(ProductCreate, BaseModel, table=True):

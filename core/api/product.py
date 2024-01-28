@@ -1,4 +1,4 @@
-from fastapi import APIRouter, File, UploadFile, status
+from fastapi import APIRouter, BackgroundTasks, File, UploadFile, status
 from sqlmodel import select
 from sqlmodel_crud_manager.crud import CRUDManager
 
@@ -53,6 +53,23 @@ def create_product(product: ProductCreate):
 
 
 @router.post(
+    "/create-multiple",
+    status_code=status.HTTP_201_CREATED,
+    response_model=dict,
+)
+async def create_products(
+    products: list[ProductCreate],
+    background_tasks: BackgroundTasks,
+):
+    background_tasks.add_task(
+        crud.create_or_update_multiple_by_fields,
+        products,
+        ["barcode", "company_id"],
+    )
+    return {"message": "Products are being created and updated"}
+
+
+@router.post(
     "/{pk}/upload-image",
     status_code=status.HTTP_200_OK,
     response_model=Product,
@@ -61,7 +78,31 @@ async def upload_image(pk: int, image: UploadFile = File(...)):
     product: Product = crud.get(pk)
     img = FileHandler(
         image,
-        filename=f"{pk}_product_{product.name.lower().replace(" ","_")}.png",
+        filename=f"{product.barcode}_{product.company.name}_product_"
+        f"{product.name.lower().replace(" ","_")}.png",
+    )
+    await img.upload_file()
+    product.image = img.get_public_url()
+    return crud.update(product)
+
+
+@router.post(
+    "/{company_id}/{barcode}/upload-image",
+    status_code=status.HTTP_200_OK,
+    response_model=Product,
+)
+async def upload_img_using_barcode(
+    barcode: str,
+    company_id: int,
+    image: UploadFile = File(...),
+):
+    product: Product = crud.get_by_fields(
+        {"barcode": barcode, "company_id": company_id}
+    )
+    img = FileHandler(
+        image,
+        filename=f"{product.barcode}_{product.company.name}_product_"
+        f"{product.name.lower().replace(" ","_")}.png",
     )
     await img.upload_file()
     product.image = img.get_public_url()
