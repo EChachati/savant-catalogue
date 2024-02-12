@@ -6,7 +6,6 @@ from sqlmodel import Field, Relationship
 
 from core.api.category import crud as category_crud
 from core.api.company import crud as company_crud
-from core.controllers.currency import CurrencyController
 from core.sql.mixins import NameMixin
 from core.sql.models.base_model import BaseModel
 from core.sql.models.category import CategoryCreate
@@ -72,8 +71,11 @@ class Product(ProductCreate, BaseModel, table=True):
 
     @property
     def price_ves(self):
-        ves_to_usd_value = CurrencyController().get_by_code("VES").to_usd
-        return Decimal(self.price * ves_to_usd_value).quantize(Decimal("1.00"))
+        from core.controllers.currency import get_ves_currency
+
+        return Decimal(self.price * get_ves_currency().to_usd).quantize(
+            Decimal("1.00")
+        )
 
 
 class ProductResponse(ProductCreate):

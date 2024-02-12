@@ -72,24 +72,26 @@ async def create_products(
 @router.post(
     "/{pk}/upload-image",
     status_code=status.HTTP_200_OK,
-    response_model=Product,
+    response_model=dict[str, str],
 )
 async def upload_image(pk: int, image: UploadFile = File(...)):
     product: Product = crud.get(pk)
     img = FileHandler(
         image,
         filename=f"{product.barcode}_{product.company.name}_product_"
-        f"{product.name.lower().replace(" ","_")}.png",
+        f"{product.name.lower()}.png".replace(" ", "_"),
     )
     await img.upload_file()
     product.image = img.get_public_url()
-    return crud.update(product)
+    crud.update(product)
+
+    return {"message": "Image uploaded successfully"}
 
 
 @router.post(
     "/{company_id}/{barcode}/upload-image",
     status_code=status.HTTP_200_OK,
-    response_model=Product,
+    response_model=dict[str, str],
 )
 async def upload_img_using_barcode(
     barcode: str,
@@ -102,11 +104,12 @@ async def upload_img_using_barcode(
     img = FileHandler(
         image,
         filename=f"{product.barcode}_{product.company.name}_product_"
-        f"{product.name.lower().replace(" ","_")}.png",
+        f"{product.name.lower()}.png".replace(" ", "_"),
     )
     await img.upload_file()
     product.image = img.get_public_url()
-    return crud.update(product)
+    crud.update(product)
+    return {"message": "Image uploaded successfully"}
 
 
 @router.get(
@@ -134,7 +137,7 @@ def list_products(
     Returns:
     a list of products.
     """
-    query = select(Product)
+    query = select(Product).where(Product.stock > 0)
     if company_id:
         query = query.where(Product.company_id == company_id)
     if category_id:
